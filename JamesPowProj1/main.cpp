@@ -45,7 +45,7 @@ void print(const string* dynamicArray, int size);
 
 int main()
 {   
-    // code to test reverse()
+    // START of driver program for reverse()
     //cout << "This program takes a string and reverses it.\n";
 
     //const int SIZE = 100;
@@ -62,13 +62,10 @@ int main()
 
     //// prints result of reverse() function call
     //cout << "The reversed string is: " << string_head << endl;
-    // end of reverse() driver program
+    // END of reverse() driver program
    
 
-    // write code to test add entry and delete entry function
-    // you may watch video notes to get idea for this part
-
-    // code to test addEntry() and deleteEntry()
+    // START of driver program to test addEntry() and deleteEntry()
     int arrSize = 5;
     string* strArray = new string[arrSize];
     strArray[0] = "Hamza";
@@ -77,37 +74,37 @@ int main()
     strArray[3] = "Misha";
     strArray[4] = "Ryan";
 
-    string entry1 = "Khalid";
-    string* strArray2 = addEntry(strArray, arrSize, entry1);
-    print(strArray2, arrSize);
+    string entry = "Khalid";
+    strArray = addEntry(strArray, arrSize, entry);
+    print(strArray, arrSize);
 
-    string entry2 = "Jordan";
-    string* strArray3 = addEntry(strArray2, arrSize, entry2);
-    print(strArray3, arrSize);
+    entry = "Jordan";
+    strArray = addEntry(strArray, arrSize, entry);
+    print(strArray, arrSize);
 
-
-    string entry3 = "Eva";
-    string* strArray4 = addEntry(strArray3, arrSize, entry3);
-    print(strArray4, arrSize);
+    entry = "Eva";
+    strArray = addEntry(strArray, arrSize, entry);
+    print(strArray, arrSize);
 
     string target = "Jordan";
-    string* strArray5 = deleteEntry(strArray4, arrSize, target);
-    print(strArray5, arrSize);
+    strArray = deleteEntry(strArray, arrSize, target);
+    print(strArray, arrSize);
 
-    string target2 = "James";
-    string* strArray6 = deleteEntry(strArray5, arrSize, target);
-    print(strArray6, arrSize);
+    target = "James";
+    strArray = deleteEntry(strArray, arrSize, target);
+    print(strArray, arrSize);
 
+    entry = "Wasif";
+    strArray = addEntry(strArray, arrSize, entry);
+    print(strArray, arrSize);
 
-    // To test print()
-    /*string* array_ptr = new string [10];
+    target = "Hamza";
+    strArray = deleteEntry(strArray, arrSize, target);
+    print(strArray, arrSize);
 
-    for (int i = 0; i < 10; i++) {
-        cout << "Enter letter: ";
-        cin >> array_ptr[i];
-    }
-
-    print(array_ptr, 10);*/
+    target = "Jordan";
+    strArray = deleteEntry(strArray, arrSize, target);
+    print(strArray, arrSize);
 
     cin.get();
     return 0;
@@ -142,6 +139,8 @@ void reverse(char* front, char* rear) {
 
 string* addEntry(string* dynamicArray, int& size, string newEntry) {
 
+    cout << "Adding " << newEntry << " to array at index " << size << "..." << endl << endl;
+
     string* dynamicArray2 = new string[size + 1];
 
     for (int i = 0; i < size; i++) {
@@ -159,14 +158,22 @@ string* addEntry(string* dynamicArray, int& size, string newEntry) {
 
 string* deleteEntry(string* dynamicArray, int& size, string entryToDelete) {
 
+    cout << "Searching for " << entryToDelete << "..." << endl;
+
     for (int i = 0; i < size; i++) {
-        // if searched-for element is found, create new array without it
-        if (dynamicArray[i] == entryToDelete) {
+        if (dynamicArray[i] == entryToDelete) { // if searched-for element is found
+
+            std::cout << "Found " << entryToDelete << " at index " << i << endl;
+            std::cout << "Deleting " << entryToDelete << " from array..." << endl;
+            std::cout << "And returning updated array " << endl << endl;
+
             string* smallerArray = new string[--size];
             for (int j = 0; j < size; j++) {
-                if (j == i) {
+                if (i == 0) { // branch to deal with deletion of name from index [0]
                     smallerArray[j] = dynamicArray[j + 1];
-                    
+                }
+                else if (j == i) { // this skips array to be deleted at index [j] 
+                    smallerArray[j] = dynamicArray[j + 1]; // and grabs value from next position
                 }
                 else {
                     smallerArray[j] = dynamicArray[j];
@@ -176,9 +183,8 @@ string* deleteEntry(string* dynamicArray, int& size, string entryToDelete) {
             return smallerArray;
         }
     }
-
     // if entryToDelete is not found
-    cout << "name not found" << endl << "returning unchanged array\n\n";
+    std::cout << "name not found" << endl << "returning unchanged array\n\n";
     return dynamicArray;
 }
 
